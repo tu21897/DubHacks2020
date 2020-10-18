@@ -15,17 +15,21 @@ router.get('/', function(req, res, next) {
 router.get('/getChannelByUserName', async function(req, res, next) {
   const { username } = req.query;
   try {
-    const { data } = await
+    let { data } = await
       youtube.channels.list({
         key: apiKey,
         part: 'snippet',
         forUsername: username,
-        maxResults: 1,
+        maxResults: 5,
       });
     if (data.pageInfo.totalResults === 0) {
-
+      data = await searchAll(username); //debug
     }
-    res.status(200).send(data);
+    if (data !== undefined) {
+      res.status(200).send(data);
+    } else {
+      throw 'Could not find any data.';
+    }
   } catch (err) {
     res.status(500).send(err);
   }
@@ -36,15 +40,37 @@ async function searchList(username) {
     const { data } = await
       youtube.search.list({
         key: apiKey,
-        part: 'snippet'
+        part: 'snippet',
+        eventType: 'live',
+        maxResults: 25,
+        q: username,
+        type: 'video'
       });
+    return data;
   } catch (err) {
+    return undefined;
+  }
+}
 
+// search channel
+async function searchAll(username) {
+  try {
+    const { data } = await
+      youtube.search.list({
+        key: apiKey,
+        part: 'snippet',
+        maxResults: 25,
+        q: username,
+        type: 'channel'
+      });
+    return data;
+  } catch (err) {
+    return undefined;
   }
 }
 
 
-
+/*
 
 // get the statistics of the livestream
 router.get('/getLiveStreamStat', async function(req, res, next) {
@@ -54,6 +80,7 @@ router.get('/getLiveStreamStat', async function(req, res, next) {
     const { data } = await ;
       youtube.liveBroadcasts.list({
         key:apiKey,
+        part: 'snippet'
 
       })
     res.status(200).send(data);
@@ -62,6 +89,7 @@ router.get('/getLiveStreamStat', async function(req, res, next) {
   }
 });
 
+*/
 
 
 /*
