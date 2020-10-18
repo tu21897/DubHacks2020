@@ -68,19 +68,3 @@ router.get('/getStreams', async function(req, res, next) {
 });
 
 module.exports = router;
-
-/*
-  Typical get template
-
-router.get('/', async function(req, res, next) {
-  const { _ } = req.query;
-
-  try {
-    const _ = await apiClient._();
-    res.status(200).send(_);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
-
-*/
