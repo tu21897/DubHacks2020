@@ -1,0 +1,46 @@
+
+.cards {
+    display: flex;
+    justify-content: center;
+}
+
+.cards > div {
+    border: solid;
+}
+#search-button {
+    border: none;
+    outline: none;
+    background: #f04040;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+    width: 80px;
+    transition: 0.5s;
+    height: 40px;
+}
+
+.btn {
+    font-family: sans-serif;
+    font-weight: 400;
+    border-radius: 10px;
+    cursor:pointer;
+    transition: transform 0.3s ease;
+    top: 50%;
+    left: 50%;
+    margin: 0 auto;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+.basic {
+    padding: 15px 30px;
+    font-size: 20px;
+    background-color: #e04848;
+    color: #fff;
+    border: none;
+}
+
+
+

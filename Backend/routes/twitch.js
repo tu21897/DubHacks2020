@@ -29,6 +29,27 @@ router.get('/getUserByName', async function(req, res, next) {
   }
 });
 
+router.get('/getUsersByIds', async function(req, res, next) {
+  const { ids } = req.query;
+  let array = JSON.parse("[" + ids + "]");
+  try {
+    const users = await apiClient.helix.users.getUsersByIds(array);
+    res.status(200).send(users);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+router.get('/getGameById', async function(req, res, next) {
+  const { id } = req.query;
+  try {
+    const games = await apiClient.helix.games.getGameById(id);
+    res.status(200).send(games);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 /* GET info on whether a stream is live based on username */
 router.get('/isStreamLive', async function(req, res, next) {
   const { username } = req.query;
@@ -60,8 +81,8 @@ router.get('/goToStream', async function(req, res, next) {
 router.get('/getStreams', async function(req, res, next) {
   const { filter } = req.query;
   try {
-    const streams = await apiClient.helix.streams.getStreams(filter);
-    res.status(200).send(streams);
+    let { data } = await apiClient.helix.streams.getStreams(filter);
+    res.status(200).send(data);
   } catch (err) {
     res.status(500).send(err);
   }

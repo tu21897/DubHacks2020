@@ -1,8 +1,14 @@
 import React from "react";
 
+import StreamCardManager from '../StreamCardManager/StreamCardManager';
 function Home() {
+
+
+
   return (
-    <p>Home</p>
+    <div>
+      <StreamCardManager/>
+    </div>
   )
 }
 
